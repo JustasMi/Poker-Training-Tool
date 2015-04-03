@@ -24,7 +24,6 @@ namespace Poker_Training_Tool
 
         public enum ranks : int
         {
-            Ace = 1,
             Two  = 2,
             Three = 3,
             Four = 4,
@@ -37,19 +36,25 @@ namespace Poker_Training_Tool
             Jack = 11,
             Queen = 12,
             King = 13,
+            Ace = 14,
         }
 
         private ranks value;
         private suits suit;
 
-        public ranks getValue()
+        public int getValue()
         {
-            return value;
+            return Convert.ToInt32(value);
         }
 
-        public suits getSuit()
+        public int getSuit()
         {
-            return suit;
+            return Convert.ToInt32(suit);
+        }
+
+        public override string ToString()
+        {
+            return value.ToString() + " of " + suit.ToString();
         }
     }
 }
