@@ -45,5 +45,16 @@ namespace Poker_Training_Tool.Classes
             cards.Remove(c);
             return c;
         }
+
+        public List<Card> getCards()
+        {
+            return cards;
+        }
+
+        public Card removeCard(Card card)
+        {
+            cards.Remove(card);
+            return card;
+        }
     }
 }

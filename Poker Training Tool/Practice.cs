@@ -15,6 +15,8 @@ namespace Poker_Training_Tool
     {
         private Table table;
         List<Label> commun_cards = new List<Label>();
+        List<Question> questions = new List<Question>();
+        List<Button> answer_buttons = new List<Button>();
 
         public Practice()
         {
@@ -30,12 +32,6 @@ namespace Poker_Training_Tool
         {
             // Create table with 2 players
             table = new Table(2);
-
-            hand1c1.Text = table.getHands()[0].getCard1().ToString();
-            hand1c2.Text = table.getHands()[0].getCard2().ToString();
-
-            hand2c1.Text = table.getHands()[1].getCard1().ToString();
-            hand2c2.Text = table.getHands()[1].getCard2().ToString();
 
             // Find the type of hand
             int c1 = table.getHands()[0].getCard1().getValue();
@@ -258,6 +254,8 @@ namespace Poker_Training_Tool
 
             updateHandStrenght(table);
             updateTableGUI();
+            preFlopQuestion();
+
         }
 
         private void next_Click(object sender, EventArgs e)
@@ -270,18 +268,24 @@ namespace Poker_Training_Tool
             table.deal();
 
             // Evaluate hand strength
-
             updateHandStrenght(table);
             updateTableGUI();
+            flopQuestion();
+            Console.WriteLine(countOuts(table.getHands()[0], table));
         }
 
         private void setupControls()
         {
+            // Link community cards
             commun_cards.Add(flop1c);
             commun_cards.Add(flop2c);
             commun_cards.Add(flop3c);
             commun_cards.Add(turn1c);
             commun_cards.Add(river1c);
+            // Link answer buttons
+            answer_buttons.Add(answer_label_1);
+            answer_buttons.Add(answer_label_2);
+            answer_buttons.Add(answer_label_3);
         }
 
         private void updateHandStrenght(Table t)
@@ -295,6 +299,13 @@ namespace Poker_Training_Tool
 
         private void updateTableGUI()
         {
+            // Display player hands
+            hand1c1.Text = table.getHands()[0].getCard1().ToString();
+            hand1c2.Text = table.getHands()[0].getCard2().ToString();
+
+            hand2c1.Text = table.getHands()[1].getCard1().ToString();
+            hand2c2.Text = table.getHands()[1].getCard2().ToString();
+
             // Update hand strength label
             strenght1.Text = table.getHands()[0].getHandStrenght().ToString();
             strenght2.Text = table.getHands()[1].getHandStrenght().ToString();
@@ -316,8 +327,179 @@ namespace Poker_Training_Tool
             }
         }
 
+        private void flopQuestion()
+        {
+            question_label.Text = "How many outs does your hand have?";
+            
+            answer_label_1.Text = "6";
+            answer_label_2.Text = "12";
+            answer_label_3.Text = "32";
 
+            answer_label_1.Click += incorrect_Click;
+            answer_label_2.Click += correct_Click;
+            answer_label_3.Click += incorrect_Click;
 
+            // Make controls visible
+
+            question_label.Visible = true;
+
+            answer_label_1.Visible = true;
+            answer_label_2.Visible = true;
+            answer_label_3.Visible = true;
+            
+        }
+
+        private void preFlopQuestion()
+        {
+            string question_text = "Whose hand is most likely to win?";
+            string answer1 = "Player";
+            string answer2 = "Villain";
+
+            if (true)
+            {
+                List<string> answers = new List<string>();
+                answers.Add(answer1);
+                answers.Add(answer2);
+                Question q = new Question(question_text,answers);
+            }
+            else
+            {
+
+            }
+            question_label.Text = "Whose hand is most likely to win?";
+
+            answer_label_1.Text = "Player";
+            answer_label_3.Text = "Opponent";
+
+            answer_label_1.Click += correct_Click;
+            answer_label_3.Click += incorrect_Click;
+
+            // Make controls visible
+
+            question_label.Visible = true;
+
+            answer_label_1.Visible = true;
+            answer_label_3.Visible = true;
+        }
+
+        private void setUpQuestion(Question q)
+        {
+            question_label.Text = q.getQuestion();
+            question_label.Visible = true;
+
+            List<string> answers = q.getAnswers();
+            bool correct_ans = false;
+
+            Random rnd = new Random();
+
+            for (int i = 0; i < answers.Count; i++ )
+            {
+                int random_number = rnd.Next(0, answers.Count - 1);
+
+                if (!correct_ans && random_number == 0)
+                {
+                    correct_ans = true;
+                    answer_buttons[i].Click += correct_Click;
+                }
+                else
+                {
+                    answer_buttons[i].Click += incorrect_Click;
+                }
+
+                answer_buttons[i].Visible = true;
+                answer_buttons[i].Text = answers[i];
+            }
+        }
+
+        private void correct_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Correct answer was clicked");
+            hideQuestionControls();
+        }
+        private void incorrect_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Incorrect answer was clicked");
+            hideQuestionControls();
+        }
+
+        private void hideQuestionControls()
+        {
+            question_label.Visible = false;
+
+            answer_label_1.Visible = false;
+            answer_label_2.Visible = false;
+            answer_label_3.Visible = false;
+        }
+
+        private int countOuts(Hand h, Table t)
+        {
+            // List of outs
+            List<Card> out_list = new List<Card>();
+            List<Hand.strength> out_strength = new List<Hand.strength>();
+            // Deck of cards
+            List<Card> cards = t.getDeck().getCards();
+            // Hands in play
+            List<Hand> hands = t.getHands();
+            // Community cards
+            Card[] commu_cards = t.getCommunityCards();
+
+            Hand.strength current = hands[0].evaluateHand(commu_cards);
+            //Hand.strength opponent_current = hands[1].evaluateHand(commu_cards);
+            int outs = 0;
+            
+            bool turn = commu_cards[3] == null ? true:false; 
+            /*
+            if (commu_cards[3] == null)
+            {
+                turn = true;
+            }
+            else
+            {
+                turn = false;
+            }
+             */
+
+            for (int i = 0; i < cards.Count; i++)
+            {
+                if (turn)
+                {
+                    commu_cards[3] = cards[i];
+                }
+                else
+                {
+                    commu_cards[4] = cards[i];
+                }
+
+                Hand.strength newStrength = hands[0].evaluateHand(commu_cards);
+                Hand.strength opponentNewStrength = hands[1].evaluateHand(commu_cards);
+
+                if (newStrength == Hand.strength.Flush)
+                {
+                    bool opp = newStrength>opponentNewStrength?true:false;
+                    Console.WriteLine("Considering flush with "+cards[i].ToString()+" Opponent hand has: "+opponentNewStrength.ToString()+ " and "+ opp);
+                }
+
+                if (newStrength > current && newStrength > opponentNewStrength)
+                {
+                    outs++;
+                    out_list.Add(cards[i]);
+                    out_strength.Add(newStrength);
+                }
+            }
+            Console.WriteLine("List OF OUTS!!!");
+
+            for (int i = 0;i<out_list.Count;i++)
+            {
+                Console.WriteLine(out_list[i].ToString()+" ("+ out_strength[i].ToString()+")");
+            }
+            /*
+            foreach (Card c in out_list)
+            {
+                Console.WriteLine(c.ToString()+" ("+out);
+            }
+             */
+            return outs;
+        }
 
     }
 }

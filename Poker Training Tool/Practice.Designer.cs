@@ -31,16 +31,13 @@
             this.hand1c1 = new System.Windows.Forms.Label();
             this.hand1c2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.answer_label_2 = new System.Windows.Forms.Button();
             this.hand2c2 = new System.Windows.Forms.Label();
             this.hand2c1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.question_label = new System.Windows.Forms.Label();
+            this.answer_label_3 = new System.Windows.Forms.Button();
             this.status = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.next = new System.Windows.Forms.Button();
@@ -53,6 +50,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.strenght2 = new System.Windows.Forms.Label();
             this.strenght1 = new System.Windows.Forms.Label();
+            this.answer_label_1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // hand1c1
@@ -75,7 +73,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(157, 458);
+            this.button1.Location = new System.Drawing.Point(12, 206);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -83,14 +81,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // answer_label_2
             // 
-            this.button2.Location = new System.Drawing.Point(290, 458);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.answer_label_2.Location = new System.Drawing.Point(290, 458);
+            this.answer_label_2.Name = "answer_label_2";
+            this.answer_label_2.Size = new System.Drawing.Size(75, 23);
+            this.answer_label_2.TabIndex = 3;
+            this.answer_label_2.Text = "button2";
+            this.answer_label_2.UseVisualStyleBackColor = true;
+            this.answer_label_2.Visible = false;
             // 
             // hand2c2
             // 
@@ -130,51 +129,26 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Your Cards";
             // 
-            // label3
+            // question_label
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(155, 382);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(343, 25);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "What are the chances of you winning?";
+            this.question_label.AutoSize = true;
+            this.question_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.question_label.Location = new System.Drawing.Point(166, 411);
+            this.question_label.Name = "question_label";
+            this.question_label.Size = new System.Drawing.Size(343, 25);
+            this.question_label.TabIndex = 8;
+            this.question_label.Text = "What are the chances of you winning?";
+            this.question_label.Visible = false;
             // 
-            // label4
+            // answer_label_3
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(154, 425);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Option1";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(423, 458);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(290, 425);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Option 2";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(420, 425);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Option 3";
+            this.answer_label_3.Location = new System.Drawing.Point(423, 458);
+            this.answer_label_3.Name = "answer_label_3";
+            this.answer_label_3.Size = new System.Drawing.Size(75, 23);
+            this.answer_label_3.TabIndex = 10;
+            this.answer_label_3.Text = "button3";
+            this.answer_label_3.UseVisualStyleBackColor = true;
+            this.answer_label_3.Visible = false;
             // 
             // status
             // 
@@ -292,11 +266,22 @@
             this.strenght1.TabIndex = 24;
             this.strenght1.Text = "strenght2";
             // 
+            // answer_label_1
+            // 
+            this.answer_label_1.Location = new System.Drawing.Point(136, 458);
+            this.answer_label_1.Name = "answer_label_1";
+            this.answer_label_1.Size = new System.Drawing.Size(75, 23);
+            this.answer_label_1.TabIndex = 25;
+            this.answer_label_1.Text = "button4";
+            this.answer_label_1.UseVisualStyleBackColor = true;
+            this.answer_label_1.Visible = false;
+            // 
             // Practice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 541);
+            this.Controls.Add(this.answer_label_1);
             this.Controls.Add(this.strenght1);
             this.Controls.Add(this.strenght2);
             this.Controls.Add(this.label7);
@@ -309,16 +294,13 @@
             this.Controls.Add(this.next);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.status);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.answer_label_3);
+            this.Controls.Add(this.question_label);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.hand2c2);
             this.Controls.Add(this.hand2c1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.answer_label_2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.hand1c2);
             this.Controls.Add(this.hand1c1);
@@ -334,16 +316,13 @@
         private System.Windows.Forms.Label hand1c1;
         private System.Windows.Forms.Label hand1c2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button answer_label_2;
         private System.Windows.Forms.Label hand2c2;
         private System.Windows.Forms.Label hand2c1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label question_label;
+        private System.Windows.Forms.Button answer_label_3;
         private System.Windows.Forms.Label status;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button next;
@@ -356,5 +335,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label strenght2;
         private System.Windows.Forms.Label strenght1;
+        private System.Windows.Forms.Button answer_label_1;
     }
 }

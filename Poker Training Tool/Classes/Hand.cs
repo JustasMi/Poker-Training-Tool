@@ -164,7 +164,6 @@ namespace Poker_Training_Tool.Classes
 
                 if (straightCount >= 5)
                 {
-                    Console.WriteLine("Straight detected");
                     if (flush)
                     {
                         return true;
@@ -175,7 +174,6 @@ namespace Poker_Training_Tool.Classes
                     }
                 }
             }
-            Console.WriteLine("No straight detected!");
             return false;
         }
 
@@ -192,11 +190,9 @@ namespace Poker_Training_Tool.Classes
             {
                 if (cards[i] == quantity)
                 {
-                    Console.WriteLine(quantity+" Pair detected!");
                     return true;
                 }
             }
-            Console.WriteLine(quantity + " Pair not detected!");
             return false;
         }
 
@@ -220,19 +216,11 @@ namespace Poker_Training_Tool.Classes
                         if (i != j && cards[j] == 2)
                         {
                             // Combination detected
-                            if (fullHouse)
-                                Console.WriteLine("Full house detected");
-                            else
-                                Console.WriteLine("Two pair detected");
                             return true;
                         }
                     }
                 }
             }
-            if (fullHouse)
-                Console.WriteLine("Full house not detected!");
-            else
-                Console.WriteLine("Two pair not detected");
             return false;
         }
 
@@ -265,12 +253,10 @@ namespace Poker_Training_Tool.Classes
                     if (straightCount == 5)
                     {
                         // We have a Royal Flush!!!
-                        Console.WriteLine("Royal flush detected!!!");
                         return true;
                     }
                 }
             }
-            Console.WriteLine("Royal flush not detected!!!");
             return false;
         }
 
@@ -291,11 +277,9 @@ namespace Poker_Training_Tool.Classes
 
                 if (flushCount >= 5)
                 {
-                    Console.WriteLine("Flush detected!!");
                     return true;
                 }
             }
-            Console.WriteLine("Flush not detected!!");
             return false;
         }
     }
