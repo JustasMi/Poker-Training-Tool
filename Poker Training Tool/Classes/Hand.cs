@@ -13,6 +13,24 @@ namespace Poker_Training_Tool.Classes
 
         private strength hand_strength;
 
+        private List<Card> strengthCards = new List<Card>();
+
+        private int preflopChance;
+
+        public List<Card> getCombinationCards()
+        {
+            return strengthCards;        }
+
+        public void setPreflopChance(int chance)
+        {
+            preflopChance = chance;
+        }
+
+        public int getPreflopChance()
+        {
+            return preflopChance;
+        }
+
         public enum strength : int
         {
             High_Card = 1,
@@ -41,6 +59,37 @@ namespace Poker_Training_Tool.Classes
         public Card getCard2()
         {
             return card2;
+        }
+
+        public int compareHand(Hand rhs)
+        {
+            if (rhs.getHandStrenght() > this.getHandStrenght())
+            {
+                return -1;
+            }
+            else if (this.getHandStrenght() > rhs.getHandStrenght())
+            {
+                return 1;
+            }
+            else
+            {
+                List<Card> rhsCombination = rhs.getCombinationCards();
+                for (int i = 0; i < 5;i++ )
+                {
+                    if (rhsCombination.Count() -1 >= i && strengthCards.Count() - 1 >= i)
+                    {
+                        if (rhsCombination[i].getValue() > strengthCards[i].getValue())
+                        {
+                            return -1;
+                        }
+                        else if (rhsCombination[i].getValue() < strengthCards[i].getValue())
+                        {
+                            return 1;
+                        }
+                    }
+                }
+            }
+            return 0;
         }
 
         public strength evaluateHand(Card[] community_cards)
@@ -120,6 +169,18 @@ namespace Poker_Training_Tool.Classes
             {
                 return strength.One_Pair;
             }
+
+            List<Card> combination = new List<Card>();
+
+            for (int i = totalCards.Count() - 1; i >= 0;i-- )
+            {
+                combination.Add(totalCards[i]);
+                if (combination.Count() == 5)
+                {
+                    break;
+                }
+            }
+            strengthCards = combination;
             return strength.High_Card;
         }
 
@@ -142,6 +203,9 @@ namespace Poker_Training_Tool.Classes
                 int suit = totalCards[i].getSuit();
                 int nextStartingCard;
 
+                List<Card> straightCards = new List<Card>();
+                straightCards.Add(totalCards[i]);
+
                 if (totalCards[i].getValue() == Convert.ToInt32(Card.ranks.Ace))
                 {
                     nextStartingCard = 0;
@@ -159,19 +223,14 @@ namespace Poker_Training_Tool.Classes
                     {
                         straightCount++;
                         straightRank++;
+                        straightCards.Add(totalCards[j]);
                     }
                 }
 
                 if (straightCount >= 5)
                 {
-                    if (flush)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+                    strengthCards = straightCards.OrderByDescending(c => c.getValue()).ToList();
+                    return true;
                 }
             }
             return false;
@@ -180,6 +239,7 @@ namespace Poker_Training_Tool.Classes
         private bool checkSameCards(List<Card> totalCards, int quantity)
         {
             int[] cards = new int[15];
+            List<Card> strength = new List<Card>();
 
             for (int i = 0; i < totalCards.Count; i++)
             {
@@ -190,6 +250,22 @@ namespace Poker_Training_Tool.Classes
             {
                 if (cards[i] == quantity)
                 {
+                    for (int j = 0; j < quantity;j++)
+                    {
+                        strength.Add(new Card(i, 2));
+                    }
+
+                    for (int j = 14; j >= 0; j--)
+                    {
+                        if (j != i && cards[j] > 0)
+                        {
+                            strength.Add(new Card(j, 2));
+                        }
+                        if (strength.Count == 5)
+                            break;
+
+                    }
+                    strengthCards = strength;
                     return true;
                 }
             }
@@ -199,6 +275,8 @@ namespace Poker_Training_Tool.Classes
         private bool checkTwoPairs(List<Card> totalCards, bool fullHouse)
         {
             int[] cards = new int[15];
+
+            List<Card> strength = new List<Card>();
 
             int cardQuantity = fullHouse ? 3 : 2;
 
@@ -211,11 +289,26 @@ namespace Poker_Training_Tool.Classes
             {
                 if (cards[i] == cardQuantity)
                 {
+                    strength.Add(new Card(i,2));
+
                     for (int j = 14; j >= 0; j--)
                     {
                         if (i != j && cards[j] == 2)
                         {
+                            strength.Add(new Card(j, 2));
+                            if (!fullHouse)
+                            {
+                                for (int z = 14; z >= 0; z--)
+                                {
+                                    if (cards[z] > 0 && z != i && z != j)
+                                    {
+                                        strength.Add(new Card(z, 2));
+                                        break;
+                                    }
+                                }
+                            }
                             // Combination detected
+                            strengthCards = strength;
                             return true;
                         }
                     }
@@ -264,6 +357,9 @@ namespace Poker_Training_Tool.Classes
         {
             for (int i = 0; i < totalCards.Count; i++)
             {
+                List<Card> strength = new List<Card>();
+                strength.Add(totalCards[i]);
+
                 int flushSuit = totalCards[i].getSuit();
                 int flushCount = 1;
 
@@ -272,11 +368,13 @@ namespace Poker_Training_Tool.Classes
                     if (totalCards[j].getSuit() == flushSuit)
                     {
                         flushCount++;
+                        strength.Add(totalCards[j]);
                     }
                 }
 
                 if (flushCount >= 5)
                 {
+                    strengthCards = strength;
                     return true;
                 }
             }

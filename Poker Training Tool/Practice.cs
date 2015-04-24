@@ -24,7 +24,6 @@ namespace Poker_Training_Tool
             
             // Setupcontrols must be used before simulating hand to properly setup containers which will be updated.
             setupControls();
-
             simulateHand();
         }
 
@@ -33,6 +32,43 @@ namespace Poker_Training_Tool
             // Create table with 2 players
             table = new Table(2);
 
+            examinePreFlop();            
+
+            updateHandStrenght(table);
+            updateTableGUI();
+
+            // Generate pre flop questions
+            List<string> answers = new List<string>();
+            if (table.getHands()[0].getPreflopChance() > table.getHands()[1].getPreflopChance())
+            {
+                answers.Add("Player");
+                answers.Add("Villain");
+                answers.Add("Tie");
+            }
+            else if (table.getHands()[0].getPreflopChance() < table.getHands()[1].getPreflopChance())
+            {
+                answers.Add("Villain");
+                answers.Add("Player");
+                answers.Add("Tie");
+            }
+            else
+            {
+                answers.Add("Tie");
+                answers.Add("Villain");
+                answers.Add("Player");
+            }
+            Question qu = new Question("Which hand is most likely to win?", answers, Table.status.Pre_Flop);
+            questions.Add(qu);
+            
+            showQuestion(questions.First());
+
+            // REMOVE!
+            chance1.Text = table.getHands()[0].getPreflopChance().ToString();
+            chance2.Text = table.getHands()[1].getPreflopChance().ToString();
+        }
+
+        private void examinePreFlop()
+        {
             // Find the type of hand
             int c1 = table.getHands()[0].getCard1().getValue();
             int c2 = table.getHands()[0].getCard2().getValue();
@@ -41,24 +77,35 @@ namespace Poker_Training_Tool
             int c4 = table.getHands()[1].getCard2().getValue();
 
             Console.WriteLine("C1 is" + c1 + " C2 is " + c2 + " C3 is " + c3 + " C4 is " + c4);
-
+            // if hands are same
+            if ((c1 == c3 && c2 == c4) || c1 == c4 && c2 == c3)
+            {
+                table.getHands()[0].setPreflopChance(50);
+                table.getHands()[1].setPreflopChance(50);
+            }
             // Pair vs pair case
-            if (c1 == c2 && c3 == c4)
+            else if (c1 == c2 && c3 == c4)
             {
                 if (c1 > c3)
                 {
                     // Hand 1 higher pair
                     status.Text = "Player overpair";
+                    table.getHands()[0].setPreflopChance(80);
+                    table.getHands()[1].setPreflopChance(20);
                 }
                 else if (c1 == c3)
                 {
                     // both pairs are the same
                     status.Text = "Same pairs";
+                    table.getHands()[0].setPreflopChance(50);
+                    table.getHands()[1].setPreflopChance(50);
                 }
                 else
                 {
                     // Hand 2 higher pair
                     status.Text = "Opponent overpair";
+                    table.getHands()[0].setPreflopChance(20);
+                    table.getHands()[1].setPreflopChance(80);
                 }
             }
             // Pair vs non pair cards
@@ -71,16 +118,22 @@ namespace Poker_Training_Tool
                     {
                         //Hand 2 overcards
                         status.Text = "Pair vs Overcards";
+                        table.getHands()[0].setPreflopChance(55);
+                        table.getHands()[1].setPreflopChance(45);
                     }
                     else if (c3 < c1 && c4 < c1)
                     {
                         //Hand 2 undercards
                         status.Text = "Pair vs Undercards";
+                        table.getHands()[0].setPreflopChance(85);
+                        table.getHands()[1].setPreflopChance(15);
                     }
                     else if ((c3 > c1 && c4 < c1) || (c4 > c1 && c3 < c1))
                     {
                         // Hand 2 overcard and undercard
                         status.Text = "Pair vs overcard and undercard";
+                        table.getHands()[0].setPreflopChance(70);
+                        table.getHands()[1].setPreflopChance(30);
                     }
                     //Pair vs card of that pair
                     else if (c1 == c3 || c1 == c4)
@@ -91,11 +144,15 @@ namespace Poker_Training_Tool
                             {
                                 // Hand 2 has same pair card and overcard
                                 status.Text = "Pair vs same card and overcard";
+                                table.getHands()[0].setPreflopChance(65);
+                                table.getHands()[1].setPreflopChance(35);
                             }
                             else
                             {
                                 // Hand 2 has same pair card and undercard
                                 status.Text = "Pair vs same card and undercard";
+                                table.getHands()[0].setPreflopChance(90);
+                                table.getHands()[1].setPreflopChance(10);
                             }
                         }
                         else
@@ -104,11 +161,15 @@ namespace Poker_Training_Tool
                             {
                                 // Hand 2 has same pair card and overcard
                                 status.Text = "Pair vs same card and overcard";
+                                table.getHands()[0].setPreflopChance(65);
+                                table.getHands()[1].setPreflopChance(35);
                             }
                             else
                             {
                                 // Hand 2 has same pair card and undercard
                                 status.Text = "Pair vs same card and undercard";
+                                table.getHands()[0].setPreflopChance(90);
+                                table.getHands()[1].setPreflopChance(10);
                             }
                         }
                     }
@@ -120,16 +181,22 @@ namespace Poker_Training_Tool
                     {
                         // Hand 1 overcards
                         status.Text = "Pair vs Overcards";
+                        table.getHands()[0].setPreflopChance(45);
+                        table.getHands()[1].setPreflopChance(55);
                     }
                     else if (c1 < c3 && c2 < c3)
                     {
                         // Hand 1 undercards
                         status.Text = "Pair vs Undercards";
+                        table.getHands()[0].setPreflopChance(15);
+                        table.getHands()[1].setPreflopChance(85);
                     }
                     else if ((c1 > c3 && c2 < c3) || (c1 < c3 && c2 > c3))
                     {
                         // Hand 1 Undercard and overcard
                         status.Text = "Pair vs undercard and overcard";
+                        table.getHands()[0].setPreflopChance(30);
+                        table.getHands()[1].setPreflopChance(70);
                     }
                     //Pair vs card of that pair
                     else if (c3 == c1 || c3 == c2)
@@ -140,11 +207,15 @@ namespace Poker_Training_Tool
                             {
                                 // Hand 1 has same card and overcard
                                 status.Text = "Pair vs same and overcard";
+                                table.getHands()[0].setPreflopChance(35);
+                                table.getHands()[1].setPreflopChance(65);
                             }
                             else
                             {
                                 // Hand 1 has undercard
                                 status.Text = "Pair vs same and undercard";
+                                table.getHands()[0].setPreflopChance(10);
+                                table.getHands()[1].setPreflopChance(90);
                             }
                         }
                         else
@@ -153,61 +224,93 @@ namespace Poker_Training_Tool
                             {
                                 // Hand 1 has same card and overcard
                                 status.Text = "Pair vs same and overcard";
+                                table.getHands()[0].setPreflopChance(35);
+                                table.getHands()[1].setPreflopChance(65);
                             }
                             else
                             {
                                 // Hand 1 has undercard
                                 status.Text = "Pair vs same and undercard";
+                                table.getHands()[0].setPreflopChance(10);
+                                table.getHands()[1].setPreflopChance(90);
                             }
                         }
                     }
                 }
             }
-            else if (c1 > c3 && c1 > c4 && c2 > c3 && c3 > c4)
+            else if (c1 > c3 && c1 > c4 && c2 > c3 && c2 > c4)
             {
                 // hand 1 are both overcards
                 status.Text = "Hand 1 Overcards";
+                table.getHands()[0].setPreflopChance(65);
+                table.getHands()[1].setPreflopChance(35);
             }
             else if (c3 > c1 && c3 > c2 && c4 > c1 && c4 > c2)
             {
                 // hand 2 are overcards
                 status.Text = "Hand 2 Overcards";
+                table.getHands()[0].setPreflopChance(35);
+                table.getHands()[1].setPreflopChance(65);
             }
             else if (c3 < c1 && c4 < c1 && c3 > c2 && c4 > c2)
             {
                 //c1 highest card then c3 c4 in between that and c2
                 status.Text = "Middle cards";
+                table.getHands()[0].setPreflopChance(55);
+                table.getHands()[1].setPreflopChance(45);
             }
             else if (c3 < c2 && c4 < c2 && c3 > c1 && c4 > c1)
             {
                 // c2 is highest card and then c3 c4 in between that and c1
                 status.Text = "Middle cards";
+                table.getHands()[0].setPreflopChance(55);
+                table.getHands()[1].setPreflopChance(45);
             }
             else if (c3 > c1 && c3 > c2 && c1 > c4 && c2 > c4)
             {
                 // c3 highest
                 status.Text = "Middle cards";
+                table.getHands()[0].setPreflopChance(45);
+                table.getHands()[1].setPreflopChance(55);
             }
             else if (c4 > c1 && c4 > c2 && c1 > c3 && c2 > c3)
             {
                 // c4 highest
                 status.Text = "Middle cards";
+                table.getHands()[0].setPreflopChance(45);
+                table.getHands()[1].setPreflopChance(55);
             }
             else if (c1 > c2 && c1 > c3 && c1 > c4 && ((c2 < c3 && c2 > c4) || (c2 < c4 && c2 > c3)))
             {
                 // c1 high vs second highest and lowest
                 status.Text = "One middle card";
+                table.getHands()[0].setPreflopChance(60);
+                table.getHands()[1].setPreflopChance(40);
             }
             else if (c2 > c1 && c2 > c3 && c2 > c4 && ((c1 < c3 && c1 > c4) || (c1 < c4 && c1 > c3)))
             {
                 // c2 high vs second highest and lowest
                 status.Text = "One middle card";
+                table.getHands()[0].setPreflopChance(60);
+                table.getHands()[1].setPreflopChance(40);
             }
-            // same for c3 and c4...
+            else if (c3 > c1 && c3 > c2 && c3 > c4 && ((c4 < c1 && c4 > c2) || (c4 < c2 && c4 > c1)))
+            {
+                // c3 high vs second highest and lowest
+                status.Text = "One middle card";
+                table.getHands()[0].setPreflopChance(40);
+                table.getHands()[1].setPreflopChance(60);
+            }
+            else if (c4 > c1 && c4 > c2 && c4 > c3 && ((c3 < c1 && c3 > c2) || (c3 < c2 && c3 > c1)))
+            {
+                // c4 high vs second highest and lowest
+                status.Text = "One middle card";
+                table.getHands()[0].setPreflopChance(40);
+                table.getHands()[1].setPreflopChance(60);
+            }
+            // if one of the cards are the same.
             else if (c1 == c3 || c1 == c4 || c2 == c3 || c2 == c4)
             {
-                // if one of the cards are the same.
-
                 //Rearrange cards so repeating card go first
                 if (c1 != c3)
                 {
@@ -242,25 +345,51 @@ namespace Poker_Training_Tool
 
                 if (c2 > c1 || c4 > c3)
                 {
-                    // High card case
+                    // High pair card case
                     status.Text = "Same card, high card case";
+                    if (c2 > c4)
+                    {
+                        // Hand 1 has higher kicker
+                        table.getHands()[0].setPreflopChance(75);
+                        table.getHands()[1].setPreflopChance(25);
+                    }
+                    else
+                    {
+                        // Hand 2 has higher kicker
+                        table.getHands()[0].setPreflopChance(25);
+                        table.getHands()[1].setPreflopChance(75);
+                    }
                 }
                 else
                 {
                     // low card case
                     status.Text = "Same card, low card case";
+
+                    if (c2 > c4)
+                    {
+                        // Hand 1 has higher kicker
+                        table.getHands()[0].setPreflopChance(70);
+                        table.getHands()[1].setPreflopChance(30);
+                    }
+                    else
+                    {
+                        // Hand 2 has higher kicker
+                        table.getHands()[0].setPreflopChance(30);
+                        table.getHands()[1].setPreflopChance(70);
+                    }
                 }
             }
-
-            updateHandStrenght(table);
-            updateTableGUI();
-            preFlopQuestion();
-
         }
 
         private void next_Click(object sender, EventArgs e)
         {
-            simulateHand();
+            //simulateHand();
+            Card[] cm = new Card[] { new Card(14, 3), new Card(5, 3), new Card(8, 3), new Card(7, 1), new Card(8, 1) };
+            //Hand.strength lol = table.getHands()[1].evaluateHand(cm);
+            table.getHands()[1].setHandStrenght(table.getHands()[1].evaluateHand(cm));
+            table.getHands()[0].setHandStrenght(table.getHands()[0].evaluateHand(cm));
+
+            int result = table.getHands()[0].compareHand(table.getHands()[1]);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -270,8 +399,15 @@ namespace Poker_Training_Tool
             // Evaluate hand strength
             updateHandStrenght(table);
             updateTableGUI();
-            flopQuestion();
-            Console.WriteLine(countOuts(table.getHands()[0], table));
+           // flopQuestion();
+            //Console.WriteLine(countOuts(table.getHands()[0], table));
+        }
+
+        private void nextStreet()
+        {
+            table.deal();
+            updateHandStrenght(table);
+            updateTableGUI();
         }
 
         private void setupControls()
@@ -286,6 +422,11 @@ namespace Poker_Training_Tool
             answer_buttons.Add(answer_label_1);
             answer_buttons.Add(answer_label_2);
             answer_buttons.Add(answer_label_3);
+            /*
+            answer_buttons[0].Click += correct_Click;
+            answer_buttons[1].Click += incorrect_Click;
+            answer_buttons[2].Click += incorrect_Click;
+             */
         }
 
         private void updateHandStrenght(Table t)
@@ -326,6 +467,7 @@ namespace Poker_Training_Tool
                 }
             }
         }
+        /*
 
         private void flopQuestion()
         {
@@ -381,8 +523,9 @@ namespace Poker_Training_Tool
             answer_label_1.Visible = true;
             answer_label_3.Visible = true;
         }
+        */
 
-        private void setUpQuestion(Question q)
+        private void showQuestion(Question q)
         {
             question_label.Text = q.getQuestion();
             question_label.Visible = true;
@@ -392,9 +535,14 @@ namespace Poker_Training_Tool
 
             Random rnd = new Random();
 
-            for (int i = 0; i < answers.Count; i++ )
+            int iterations = answers.Count;
+
+            for (int i = 0; i < iterations; i++)
             {
-                int random_number = rnd.Next(0, answers.Count - 1);
+                int random_number = rnd.Next(0, answers.Count);
+
+                answer_buttons[i].Click -= incorrect_Click;
+                answer_buttons[i].Click -= correct_Click;
 
                 if (!correct_ans && random_number == 0)
                 {
@@ -407,7 +555,8 @@ namespace Poker_Training_Tool
                 }
 
                 answer_buttons[i].Visible = true;
-                answer_buttons[i].Text = answers[i];
+                answer_buttons[i].Text = answers[random_number];
+                answers.RemoveAt(random_number);
             }
         }
 
@@ -415,11 +564,95 @@ namespace Poker_Training_Tool
         {
             Console.WriteLine("Correct answer was clicked");
             hideQuestionControls();
+            nextQuestion(true);
         }
         private void incorrect_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Incorrect answer was clicked");
             hideQuestionControls();
+            nextQuestion(false);
+        }
+
+        private void nextQuestion(bool answer)
+        {
+            questions.Remove(questions.First());
+            if (questions.Count < 1)
+            {
+                // Generate questions for another street
+                nextStreet();
+                if (table.getStatus() == Table.status.Flop)
+                {
+                    int n = table.getHands()[0].compareHand(table.getHands()[1]);
+                    int outs;
+                    if (n == 1)
+                    {
+                        // Player winning
+                         outs = countOuts(table, table.getHands()[1]);
+                    }
+                    else
+                    {
+                        // Opponent winning
+                        outs = countOuts(table, table.getHands()[0]);
+                    }
+                    Random rnd = new Random();
+                    List<string> answers = new List<string>();
+                    answers.Add(outs.ToString());
+                    answers.Add((outs + rnd.Next(1, 4)).ToString());
+                    answers.Add((outs - rnd.Next(1, 4)).ToString());
+
+                    if (n == 1)
+                    {
+                        // Player winning
+                        questions.Add(new Question("How many outs does the villain have?", answers, Table.status.Flop));
+
+                    }
+                    else
+                    {
+                        // Opponent winning
+                        questions.Add(new Question("How many outs do you have?", answers, Table.status.Flop));
+                    }
+
+                    // Add flop questions
+                }
+                else if (table.getStatus() == Table.status.Turn)
+                {
+                    questions.Add(new Question("Turn question", new List<string> { "1", "2", "3" }, Table.status.Turn));
+                    // Add turn questions
+                }
+                else if (table.getStatus() == Table.status.River)
+                {
+                    // Add river questions
+                   // questions.Add(new Question("Who holds the winning hand?", new List<string> { "1", "2", "3" }, Table.status.River));
+
+                    List<string> answers = new List<string>();
+                    int n = table.getHands()[0].compareHand(table.getHands()[1]);
+                    if (n == 1)
+                    {
+                        // Player winning
+                        answers.Add("Player");
+                        answers.Add("Villain");
+                        answers.Add("Tie");
+                    }
+                    else if (n == -1)
+                    {
+                        // Opponent winning
+                        answers.Add("Villain");
+                        answers.Add("Player");
+                        answers.Add("Tie");
+                    }
+                    else
+                    {
+                        // Tie
+                        answers.Add("Tie");
+                        answers.Add("Villain");
+                        answers.Add("Player");
+
+                    }
+                    Question qu = new Question("Who holds the winning hand?", answers, Table.status.River);
+                    questions.Add(qu);
+                }
+            }
+            showQuestion(questions.First());
         }
 
         private void hideQuestionControls()
@@ -431,7 +664,8 @@ namespace Poker_Training_Tool
             answer_label_3.Visible = false;
         }
 
-        private int countOuts(Hand h, Table t)
+        //Count outs for player ONLY at the moment
+        private int countOuts(Table t, Hand h)
         {
             // List of outs
             List<Card> out_list = new List<Card>();
@@ -440,24 +674,21 @@ namespace Poker_Training_Tool
             List<Card> cards = t.getDeck().getCards();
             // Hands in play
             List<Hand> hands = t.getHands();
-            // Community cards
-            Card[] commu_cards = t.getCommunityCards();
+            Hand[] temp = new Hand[t.getHands().Count];
+            Array.Copy(t.getHands().ToArray(), temp, t.getHands().Count);
+            hands = temp.ToList();
 
-            Hand.strength current = hands[0].evaluateHand(commu_cards);
+            Hand opposing = hands.First() == h ? hands[1] : hands[0];
+            
+            // Community cards
+            Card[] commu_cards = new Card[5];// = t.getCommunityCards();
+            Array.Copy(t.getCommunityCards(), commu_cards, t.getCommunityCards().Count());
+
+            Hand.strength current = h.evaluateHand(commu_cards);
             //Hand.strength opponent_current = hands[1].evaluateHand(commu_cards);
             int outs = 0;
             
             bool turn = commu_cards[3] == null ? true:false; 
-            /*
-            if (commu_cards[3] == null)
-            {
-                turn = true;
-            }
-            else
-            {
-                turn = false;
-            }
-             */
 
             for (int i = 0; i < cards.Count; i++)
             {
@@ -470,16 +701,21 @@ namespace Poker_Training_Tool
                     commu_cards[4] = cards[i];
                 }
 
-                Hand.strength newStrength = hands[0].evaluateHand(commu_cards);
-                Hand.strength opponentNewStrength = hands[1].evaluateHand(commu_cards);
+                Hand.strength newStrength = h.evaluateHand(commu_cards);
+                Hand.strength opponentNewStrength = opposing.evaluateHand(commu_cards);
 
+                //TEST
+                hands[0].setHandStrenght(hands[0].evaluateHand(commu_cards));
+                hands[1].setHandStrenght(hands[1].evaluateHand(commu_cards));
+                /*
                 if (newStrength == Hand.strength.Flush)
                 {
                     bool opp = newStrength>opponentNewStrength?true:false;
                     Console.WriteLine("Considering flush with "+cards[i].ToString()+" Opponent hand has: "+opponentNewStrength.ToString()+ " and "+ opp);
                 }
-
-                if (newStrength > current && newStrength > opponentNewStrength)
+                */
+                //if (newStrength > current && newStrength > opponentNewStrength)
+                if (newStrength > current && h.compareHand(opposing) == 1)
                 {
                     outs++;
                     out_list.Add(cards[i]);

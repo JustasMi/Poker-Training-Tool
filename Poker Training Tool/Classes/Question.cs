@@ -11,10 +11,13 @@ namespace Poker_Training_Tool.Classes
         private string question;
         private List<string> answers;
 
-        public Question(string q, List<string> a)
+        private Table.status question_type;
+
+        public Question(string q, List<string> a, Table.status t)
         {
             question = q;
             answers = a;
+            question_type = t;
         }
 
         public string getQuestion()
@@ -25,6 +28,11 @@ namespace Poker_Training_Tool.Classes
         public List<string> getAnswers()
         {
             return answers;
+        }
+
+        public Table.status getType()
+        {
+            return question_type;
         }
     }
 }

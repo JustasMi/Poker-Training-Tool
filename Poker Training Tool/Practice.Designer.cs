@@ -51,6 +51,10 @@
             this.strenght2 = new System.Windows.Forms.Label();
             this.strenght1 = new System.Windows.Forms.Label();
             this.answer_label_1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.chance2 = new System.Windows.Forms.Label();
+            this.chance1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // hand1c1
@@ -276,11 +280,51 @@
             this.answer_label_1.UseVisualStyleBackColor = true;
             this.answer_label_1.Visible = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(423, 109);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Chance";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(423, 357);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Chance";
+            // 
+            // chance2
+            // 
+            this.chance2.AutoSize = true;
+            this.chance2.Location = new System.Drawing.Point(474, 110);
+            this.chance2.Name = "chance2";
+            this.chance2.Size = new System.Drawing.Size(35, 13);
+            this.chance2.TabIndex = 28;
+            this.chance2.Text = "label5";
+            // 
+            // chance1
+            // 
+            this.chance1.AutoSize = true;
+            this.chance1.Location = new System.Drawing.Point(474, 357);
+            this.chance1.Name = "chance1";
+            this.chance1.Size = new System.Drawing.Size(35, 13);
+            this.chance1.TabIndex = 29;
+            this.chance1.Text = "label5";
+            // 
             // Practice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 541);
+            this.Controls.Add(this.chance1);
+            this.Controls.Add(this.chance2);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.answer_label_1);
             this.Controls.Add(this.strenght1);
             this.Controls.Add(this.strenght2);
@@ -336,5 +380,9 @@
         private System.Windows.Forms.Label strenght2;
         private System.Windows.Forms.Label strenght1;
         private System.Windows.Forms.Button answer_label_1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label chance2;
+        private System.Windows.Forms.Label chance1;
     }
 }
