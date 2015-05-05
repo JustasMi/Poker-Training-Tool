@@ -8,12 +8,6 @@ namespace Poker_Training_Tool
 {
     class Card
     {
-        public Card(int v, int s)
-        {
-            this.value = (ranks)v;
-            this.suit = (suits)s;
-        }
-
         public enum suits : int
         {
             Diamonds = 1,
@@ -37,6 +31,12 @@ namespace Poker_Training_Tool
             Queen = 12,
             King = 13,
             Ace = 14,
+        }
+
+        public Card(int v, int s)
+        {
+            this.value = (ranks)v;
+            this.suit = (suits)s;
         }
 
         private ranks value;

@@ -55,6 +55,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.chance2 = new System.Windows.Forms.Label();
             this.chance1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.correct_number = new System.Windows.Forms.Label();
+            this.incorrect_number = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.percentage_label = new System.Windows.Forms.Label();
+            this.why_button = new System.Windows.Forms.Button();
+            this.next_question = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // hand1c1
@@ -87,7 +95,7 @@
             // 
             // answer_label_2
             // 
-            this.answer_label_2.Location = new System.Drawing.Point(290, 458);
+            this.answer_label_2.Location = new System.Drawing.Point(279, 433);
             this.answer_label_2.Name = "answer_label_2";
             this.answer_label_2.Size = new System.Drawing.Size(75, 23);
             this.answer_label_2.TabIndex = 3;
@@ -137,7 +145,7 @@
             // 
             this.question_label.AutoSize = true;
             this.question_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.question_label.Location = new System.Drawing.Point(166, 411);
+            this.question_label.Location = new System.Drawing.Point(166, 399);
             this.question_label.Name = "question_label";
             this.question_label.Size = new System.Drawing.Size(343, 25);
             this.question_label.TabIndex = 8;
@@ -146,7 +154,7 @@
             // 
             // answer_label_3
             // 
-            this.answer_label_3.Location = new System.Drawing.Point(423, 458);
+            this.answer_label_3.Location = new System.Drawing.Point(423, 434);
             this.answer_label_3.Name = "answer_label_3";
             this.answer_label_3.Size = new System.Drawing.Size(75, 23);
             this.answer_label_3.TabIndex = 10;
@@ -272,7 +280,7 @@
             // 
             // answer_label_1
             // 
-            this.answer_label_1.Location = new System.Drawing.Point(136, 458);
+            this.answer_label_1.Location = new System.Drawing.Point(139, 434);
             this.answer_label_1.Name = "answer_label_1";
             this.answer_label_1.Size = new System.Drawing.Size(75, 23);
             this.answer_label_1.TabIndex = 25;
@@ -316,11 +324,95 @@
             this.chance1.TabIndex = 29;
             this.chance1.Text = "label5";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(657, 391);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Correct Answers";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(649, 411);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(92, 13);
+            this.label6.TabIndex = 31;
+            this.label6.Text = "Incorrect Answers";
+            // 
+            // correct_number
+            // 
+            this.correct_number.AutoSize = true;
+            this.correct_number.Location = new System.Drawing.Point(751, 391);
+            this.correct_number.Name = "correct_number";
+            this.correct_number.Size = new System.Drawing.Size(13, 13);
+            this.correct_number.TabIndex = 32;
+            this.correct_number.Text = "0";
+            // 
+            // incorrect_number
+            // 
+            this.incorrect_number.AutoSize = true;
+            this.incorrect_number.Location = new System.Drawing.Point(751, 411);
+            this.incorrect_number.Name = "incorrect_number";
+            this.incorrect_number.Size = new System.Drawing.Size(13, 13);
+            this.incorrect_number.TabIndex = 33;
+            this.incorrect_number.Text = "0";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(679, 434);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 13);
+            this.label9.TabIndex = 34;
+            this.label9.Text = "Percentage";
+            // 
+            // percentage_label
+            // 
+            this.percentage_label.AutoSize = true;
+            this.percentage_label.Location = new System.Drawing.Point(754, 433);
+            this.percentage_label.Name = "percentage_label";
+            this.percentage_label.Size = new System.Drawing.Size(21, 13);
+            this.percentage_label.TabIndex = 35;
+            this.percentage_label.Text = "0%";
+            // 
+            // why_button
+            // 
+            this.why_button.Location = new System.Drawing.Point(215, 462);
+            this.why_button.Name = "why_button";
+            this.why_button.Size = new System.Drawing.Size(79, 38);
+            this.why_button.TabIndex = 36;
+            this.why_button.Text = "Why?";
+            this.why_button.UseVisualStyleBackColor = true;
+            this.why_button.Visible = false;
+            this.why_button.Click += new System.EventHandler(this.why_button_Click);
+            // 
+            // next_question
+            // 
+            this.next_question.Location = new System.Drawing.Point(339, 462);
+            this.next_question.Name = "next_question";
+            this.next_question.Size = new System.Drawing.Size(79, 38);
+            this.next_question.TabIndex = 37;
+            this.next_question.Text = "Next Question";
+            this.next_question.UseVisualStyleBackColor = true;
+            this.next_question.Visible = false;
+            this.next_question.Click += new System.EventHandler(this.next_question_Click);
+            // 
             // Practice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 541);
+            this.Controls.Add(this.next_question);
+            this.Controls.Add(this.why_button);
+            this.Controls.Add(this.percentage_label);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.incorrect_number);
+            this.Controls.Add(this.correct_number);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.chance1);
             this.Controls.Add(this.chance2);
             this.Controls.Add(this.label4);
@@ -384,5 +476,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label chance2;
         private System.Windows.Forms.Label chance1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label correct_number;
+        private System.Windows.Forms.Label incorrect_number;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label percentage_label;
+        private System.Windows.Forms.Button why_button;
+        private System.Windows.Forms.Button next_question;
     }
 }

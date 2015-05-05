@@ -24,18 +24,15 @@ namespace Poker_Training_Tool.Classes
 
         public Table(int players)
         {
+            // Get a fresh and shuffled deck of cards
             deck = new Deck();
-
-           // hands.Add(new Hand(new Card(7, 3), new Card(8, 3)));
-            // hands.Add(new Hand(new Card(13, 3), new Card(8, 3)));
             
+            // Deal cards to players
             for (int j=0;j<players;j++)
             {
                 hands.Add(new Hand(deck.draw(), deck.draw()));
-                //hands.Add(new Hand(new Card(8, 3), new Card(9, 2)));
-            }
-            
-
+            }            
+            // Set the table status
             table_status = Table.status.Pre_Flop;
         }
         

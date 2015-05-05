@@ -28,31 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.practice_button = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(114, 128);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(115, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "ss";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(114, 167);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 25);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Magic Button!";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.buttonClick);
             // 
             // practice_button
             // 
@@ -91,19 +70,14 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.exit_button);
             this.Controls.Add(this.practice_button);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "Poker Training Tool";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button practice_button;
         private System.Windows.Forms.Button exit_button;
         private System.Windows.Forms.Button button4;
