@@ -1,6 +1,6 @@
 ﻿namespace Poker_Training_Tool
 {
-    partial class Form1
+    partial class Main_Menu
     {
         /// <summary>
         /// Required designer variable.
@@ -59,10 +59,11 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(142, 34);
             this.button4.TabIndex = 4;
-            this.button4.Text = "Options";
+            this.button4.Text = "Debug version";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // Form1
+            // Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -70,7 +71,7 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.exit_button);
             this.Controls.Add(this.practice_button);
-            this.Name = "Form1";
+            this.Name = "Main_Menu";
             this.Text = "Poker Training Tool";
             this.ResumeLayout(false);
 

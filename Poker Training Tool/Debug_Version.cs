@@ -11,16 +11,12 @@ using System.Windows.Forms;
 
 namespace Poker_Training_Tool
 {
-    public partial class Practice : Form
+    public partial class Debug_Version : Form
     {
         private Table table;
-
-        List<PictureBox> cardPictureBox = new List<PictureBox>();
-
+        List<Label> commun_cards = new List<Label>();
         List<Question> questions = new List<Question>();
         List<Button> answer_buttons = new List<Button>();
-
-        Dictionary<string, Bitmap> cardImages = new Dictionary<string, Bitmap>();
 
         List<Card> outs_list;
         List<Hand.strength> outs_strength_list;
@@ -28,7 +24,7 @@ namespace Poker_Training_Tool
         int correct_clicks = 0;
         int incorrect_clicks = 0;
 
-        public Practice()
+        public Debug_Version()
         {
             InitializeComponent();
             
@@ -71,6 +67,10 @@ namespace Poker_Training_Tool
             questions.Add(qu);
             
             showQuestion(questions.First());
+
+            // REMOVE!
+            chance1.Text = table.getHands()[0].getPreflopChance().ToString();
+            chance2.Text = table.getHands()[1].getPreflopChance().ToString();
         }
 
         private string examinePreFlop()
@@ -86,6 +86,7 @@ namespace Poker_Training_Tool
             // if hands are same
             if ((c1 == c3 && c2 == c4) || c1 == c4 && c2 == c3)
             {
+                status.Text = "Same hands";
                 table.getHands()[0].setPreflopChance(50);
                 table.getHands()[1].setPreflopChance(50);
                 return "Chances of winning are equal, because the hands are the same";
@@ -96,6 +97,7 @@ namespace Poker_Training_Tool
                 if (c1 > c3)
                 {
                     // Hand 1 higher pair
+                    status.Text = "Player overpair";
                     table.getHands()[0].setPreflopChance(80);
                     table.getHands()[1].setPreflopChance(20);
                     return "Player has an overpair against a smaller pair. Player has roughly 80% chance of winning.";
@@ -103,6 +105,7 @@ namespace Poker_Training_Tool
                 else if (c1 == c3)
                 {
                     // both pairs are the same
+                    status.Text = "Same pairs";
                     table.getHands()[0].setPreflopChance(50);
                     table.getHands()[1].setPreflopChance(50);
                     return "Both have same pairs, therefore it's a tie.";
@@ -110,6 +113,7 @@ namespace Poker_Training_Tool
                 else
                 {
                     // Hand 2 higher pair
+                    status.Text = "Opponent overpair";
                     table.getHands()[0].setPreflopChance(20);
                     table.getHands()[1].setPreflopChance(80);
                     return "Opponent has an overpair against a smaller pair. Player has roughly 20% chance of winning.";
@@ -124,6 +128,7 @@ namespace Poker_Training_Tool
                     if (c3 > c1 && c4 > c1)
                     {
                         //Hand 2 overcards
+                        status.Text = "Pair vs Overcards";
                         table.getHands()[0].setPreflopChance(55);
                         table.getHands()[1].setPreflopChance(45);
                         return "Player holds pair versus opponent's overcards. In this situation player has roughly 55% chance of winning.";
@@ -132,6 +137,7 @@ namespace Poker_Training_Tool
                     else if (c3 < c1 && c4 < c1)
                     {
                         //Hand 2 undercards
+                        status.Text = "Pair vs Undercards";
                         table.getHands()[0].setPreflopChance(85);
                         table.getHands()[1].setPreflopChance(15);
                         return "Player holds pair versus opponent's undercards. In this situation player has roughly 85% chance of winning.";
@@ -139,6 +145,7 @@ namespace Poker_Training_Tool
                     else if ((c3 > c1 && c4 < c1) || (c4 > c1 && c3 < c1))
                     {
                         // Hand 2 overcard and undercard
+                        status.Text = "Pair vs overcard and undercard";
                         table.getHands()[0].setPreflopChance(70);
                         table.getHands()[1].setPreflopChance(30);
                         return "Player holds pair versus opponent's overcard and undercard. In this situation player has roughly 70% chance of winning.";
@@ -151,6 +158,7 @@ namespace Poker_Training_Tool
                             if (c4 > c1)
                             {
                                 // Hand 2 has same pair card and overcard
+                                status.Text = "Pair vs same card and overcard";
                                 table.getHands()[0].setPreflopChance(65);
                                 table.getHands()[1].setPreflopChance(35);
                                 return "Player holds pair versus opponent's same card and an overcard. In this situation player has roughly 65% chance of winning.";
@@ -158,6 +166,7 @@ namespace Poker_Training_Tool
                             else
                             {
                                 // Hand 2 has same pair card and undercard
+                                status.Text = "Pair vs same card and undercard";
                                 table.getHands()[0].setPreflopChance(90);
                                 table.getHands()[1].setPreflopChance(10);
                                 return "Player holds pair versus opponent's same card and an undercard. In this situation player has roughly 90% chance of winning.";
@@ -168,6 +177,7 @@ namespace Poker_Training_Tool
                             if (c3 > c1)
                             {
                                 // Hand 2 has same pair card and overcard
+                                status.Text = "Pair vs same card and overcard";
                                 table.getHands()[0].setPreflopChance(65);
                                 table.getHands()[1].setPreflopChance(35);
                                 return "Player holds pair versus opponent's same card and an overcard. In this situation player has roughly 65% chance of winning.";
@@ -175,6 +185,7 @@ namespace Poker_Training_Tool
                             else
                             {
                                 // Hand 2 has same pair card and undercard
+                                status.Text = "Pair vs same card and undercard";
                                 table.getHands()[0].setPreflopChance(90);
                                 table.getHands()[1].setPreflopChance(10);
                                 return "Player holds pair versus opponent's same card and an undercard. In this situation player has roughly 90% chance of winning.";
@@ -188,6 +199,7 @@ namespace Poker_Training_Tool
                     if (c1 > c3 && c2 > c3)
                     {
                         // Hand 1 overcards
+                        status.Text = "Pair vs Overcards";
                         table.getHands()[0].setPreflopChance(45);
                         table.getHands()[1].setPreflopChance(55);
                         return "Player holds overcards versus opponent's pair. In this situation player has roughly 45% chance of winning.";
@@ -196,6 +208,7 @@ namespace Poker_Training_Tool
                     else if (c1 < c3 && c2 < c3)
                     {
                         // Hand 1 undercards
+                        status.Text = "Pair vs Undercards";
                         table.getHands()[0].setPreflopChance(15);
                         table.getHands()[1].setPreflopChance(85);
                         return "Player holds undercards versus opponent's pair. In this situation player has roughly 15% chance of winning.";
@@ -203,6 +216,7 @@ namespace Poker_Training_Tool
                     else if ((c1 > c3 && c2 < c3) || (c1 < c3 && c2 > c3))
                     {
                         // Hand 1 Undercard and overcard
+                        status.Text = "Pair vs undercard and overcard";
                         table.getHands()[0].setPreflopChance(30);
                         table.getHands()[1].setPreflopChance(70);
                         return "Player holds undercard and a overcard versus opponent's pair. In this situation player has roughly 30% chance of winning.";
@@ -215,6 +229,7 @@ namespace Poker_Training_Tool
                             if (c2 > c3)
                             {
                                 // Hand 1 has same card and overcard
+                                status.Text = "Pair vs same and overcard";
                                 table.getHands()[0].setPreflopChance(35);
                                 table.getHands()[1].setPreflopChance(65);
                                 return "Opponent holds pair versus player's same card and overcard. In this situation player has roughly 35% chance of winning.";
@@ -222,6 +237,7 @@ namespace Poker_Training_Tool
                             else
                             {
                                 // Hand 1 has undercard
+                                status.Text = "Pair vs same and undercard";
                                 table.getHands()[0].setPreflopChance(10);
                                 table.getHands()[1].setPreflopChance(90);
                                 return "Opponent holds pair versus player's same card and undercard. In this situation player has roughly 10% chance of winning.";
@@ -232,6 +248,7 @@ namespace Poker_Training_Tool
                             if (c1 > c3)
                             {
                                 // Hand 1 has same card and overcard
+                                status.Text = "Pair vs same and overcard";
                                 table.getHands()[0].setPreflopChance(35);
                                 table.getHands()[1].setPreflopChance(65);
                                 return "Opponent holds pair versus player's same card and overcard. In this situation player has roughly 35% chance of winning.";
@@ -239,6 +256,7 @@ namespace Poker_Training_Tool
                             else
                             {
                                 // Hand 1 has undercard
+                                status.Text = "Pair vs same and undercard";
                                 table.getHands()[0].setPreflopChance(10);
                                 table.getHands()[1].setPreflopChance(90);
                                 return "Opponent holds pair versus player's same card and undercard. In this situation player has roughly 10% chance of winning.";
@@ -250,6 +268,7 @@ namespace Poker_Training_Tool
             else if (c1 > c3 && c1 > c4 && c2 > c3 && c2 > c4)
             {
                 // hand 1 are both overcards
+                status.Text = "Hand 1 Overcards";
                 table.getHands()[0].setPreflopChance(65);
                 table.getHands()[1].setPreflopChance(35);
                 return "Player holds overcards, while opponent has undercards. In this situation player has roughly 65% chance of winning.";
@@ -257,6 +276,7 @@ namespace Poker_Training_Tool
             else if (c3 > c1 && c3 > c2 && c4 > c1 && c4 > c2)
             {
                 // hand 2 are overcards
+                status.Text = "Hand 2 Overcards";
                 table.getHands()[0].setPreflopChance(35);
                 table.getHands()[1].setPreflopChance(65);
                 return "Player holds undercards, while opponent has overcards. In this situation player has roughly 35% chance of winning.";
@@ -264,6 +284,7 @@ namespace Poker_Training_Tool
             else if (c3 < c1 && c4 < c1 && c3 > c2 && c4 > c2)
             {
                 //c1 highest card then c3 c4 in between that and c2
+                status.Text = "Middle cards";
                 table.getHands()[0].setPreflopChance(55);
                 table.getHands()[1].setPreflopChance(45);
                 return "Player holds highest and lowest cards, while opponent has middle cards. In this situation player has roughly 55% chance of winning.";
@@ -271,6 +292,7 @@ namespace Poker_Training_Tool
             else if (c3 < c2 && c4 < c2 && c3 > c1 && c4 > c1)
             {
                 // c2 is highest card and then c3 c4 in between that and c1
+                status.Text = "Middle cards";
                 table.getHands()[0].setPreflopChance(55);
                 table.getHands()[1].setPreflopChance(45);
                 return "Player holds highest and lowest cards, while opponent has middle cards. In this situation player has roughly 55% chance of winning.";
@@ -278,6 +300,7 @@ namespace Poker_Training_Tool
             else if (c3 > c1 && c3 > c2 && c1 > c4 && c2 > c4)
             {
                 // c3 highest
+                status.Text = "Middle cards";
                 table.getHands()[0].setPreflopChance(45);
                 table.getHands()[1].setPreflopChance(55);
                 return "Opponent holds highest and lowest cards, while player has middle cards. In this situation player has roughly 45% chance of winning.";
@@ -285,6 +308,7 @@ namespace Poker_Training_Tool
             else if (c4 > c1 && c4 > c2 && c1 > c3 && c2 > c3)
             {
                 // c4 highest
+                status.Text = "Middle cards";
                 table.getHands()[0].setPreflopChance(45);
                 table.getHands()[1].setPreflopChance(55);
                 return "Opponent holds highest and lowest cards, while player has middle cards. In this situation player has roughly 45% chance of winning.";
@@ -292,6 +316,7 @@ namespace Poker_Training_Tool
             else if (c1 > c2 && c1 > c3 && c1 > c4 && ((c2 < c3 && c2 > c4) || (c2 < c4 && c2 > c3)))
             {
                 // c1 high vs second highest and lowest
+                status.Text = "One middle card";
                 table.getHands()[0].setPreflopChance(60);
                 table.getHands()[1].setPreflopChance(40);
                 return "Player holds highest and third highest cards, while opponent has second highest and lowest card. In this situation player has roughly 60% chance of winning.";
@@ -299,6 +324,7 @@ namespace Poker_Training_Tool
             else if (c2 > c1 && c2 > c3 && c2 > c4 && ((c1 < c3 && c1 > c4) || (c1 < c4 && c1 > c3)))
             {
                 // c2 high vs second highest and lowest
+                status.Text = "One middle card";
                 table.getHands()[0].setPreflopChance(60);
                 table.getHands()[1].setPreflopChance(40);
                 return "Player holds highest and third highest cards, while opponent has second highest and lowest card. In this situation player has roughly 60% chance of winning.";
@@ -306,6 +332,7 @@ namespace Poker_Training_Tool
             else if (c3 > c1 && c3 > c2 && c3 > c4 && ((c4 < c1 && c4 > c2) || (c4 < c2 && c4 > c1)))
             {
                 // c3 high vs second highest and lowest
+                status.Text = "One middle card";
                 table.getHands()[0].setPreflopChance(40);
                 table.getHands()[1].setPreflopChance(60);
                 return "Opponent holds highest and third highest cards, while player has second highest and lowest card. In this situation player has roughly 40% chance of winning.";
@@ -313,6 +340,7 @@ namespace Poker_Training_Tool
             else if (c4 > c1 && c4 > c2 && c4 > c3 && ((c3 < c1 && c3 > c2) || (c3 < c2 && c3 > c1)))
             {
                 // c4 high vs second highest and lowest
+                status.Text = "One middle card";
                 table.getHands()[0].setPreflopChance(40);
                 table.getHands()[1].setPreflopChance(60);
                 return "Opponent holds highest and third highest cards, while player has second highest and lowest card. In this situation player has roughly 40% chance of winning.";
@@ -355,6 +383,7 @@ namespace Poker_Training_Tool
                 if (c2 > c1 || c4 > c3)
                 {
                     // High pair card case
+                    status.Text = "Same card, high card case";
                     if (c2 > c4)
                     {
                         // Hand 1 has higher kicker
@@ -373,6 +402,8 @@ namespace Poker_Training_Tool
                 else
                 {
                     // low card case
+                    status.Text = "Same card, low card case";
+
                     if (c2 > c4)
                     {
                         // Hand 1 has higher kicker
@@ -390,6 +421,18 @@ namespace Poker_Training_Tool
                 }
             }
             return "Hand classification error";
+        }
+
+        private void next_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show("My message here");
+            //nextHand();
+           // Card[] cm = new Card[] { new Card(14, 3), new Card(5, 3), new Card(8, 3), new Card(7, 1), new Card(8, 1) };
+            //Hand.strength lol = table.getHands()[1].evaluateHand(cm);
+            //table.getHands()[1].setHandStrenght(table.getHands()[1].evaluateHand(cm));
+           //table.getHands()[0].setHandStrenght(table.getHands()[0].evaluateHand(cm));
+
+            int result = table.getHands()[0].compareHand(table.getHands()[1]);
         }
 
         private void nextHand()
@@ -419,81 +462,20 @@ namespace Poker_Training_Tool
         private void setupControls()
         {
             // Link community cards
-            /*
             commun_cards.Add(flop1c);
             commun_cards.Add(flop2c);
             commun_cards.Add(flop3c);
             commun_cards.Add(turn1c);
             commun_cards.Add(river1c);
-            */
-            cardPictureBox.Add(communityCard1);
-            cardPictureBox.Add(communityCard2);
-            cardPictureBox.Add(communityCard3);
-            cardPictureBox.Add(communityCard4);
-            cardPictureBox.Add(communityCard5);
-
             // Link answer buttons
             answer_buttons.Add(answer_label_1);
             answer_buttons.Add(answer_label_2);
             answer_buttons.Add(answer_label_3);
-
-            // Map cards to images
-            // Diamonds
-            cardImages.Add(new Card(2, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds2);
-            cardImages.Add(new Card(3, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds3);
-            cardImages.Add(new Card(4, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds4);
-            cardImages.Add(new Card(5, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds5);
-            cardImages.Add(new Card(6, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds6);
-            cardImages.Add(new Card(7, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds7);
-            cardImages.Add(new Card(8, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds8);
-            cardImages.Add(new Card(9, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds9);
-            cardImages.Add(new Card(10, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamonds10);
-            cardImages.Add(new Card(11, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamondsJ);
-            cardImages.Add(new Card(12, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamondsQ);
-            cardImages.Add(new Card(13, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamondsK);
-            cardImages.Add(new Card(14, 1).ToString(), Poker_Training_Tool.Properties.Resources.cardDiamondsA);
-            // Clubs
-            cardImages.Add(new Card(2, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs2);
-            cardImages.Add(new Card(3, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs3);
-            cardImages.Add(new Card(4, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs4);
-            cardImages.Add(new Card(5, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs5);
-            cardImages.Add(new Card(6, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs6);
-            cardImages.Add(new Card(7, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs7);
-            cardImages.Add(new Card(8, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs8);
-            cardImages.Add(new Card(9, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs9);
-            cardImages.Add(new Card(10, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubs10);
-            cardImages.Add(new Card(11, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubsJ);
-            cardImages.Add(new Card(12, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubsQ);
-            cardImages.Add(new Card(13, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubsK);
-            cardImages.Add(new Card(14, 2).ToString(), Poker_Training_Tool.Properties.Resources.cardClubsA);
-            // Hearts
-            cardImages.Add(new Card(2, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts2);
-            cardImages.Add(new Card(3, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts3);
-            cardImages.Add(new Card(4, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts4);
-            cardImages.Add(new Card(5, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts5);
-            cardImages.Add(new Card(6, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts6);
-            cardImages.Add(new Card(7, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts7);
-            cardImages.Add(new Card(8, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts8);
-            cardImages.Add(new Card(9, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts9);
-            cardImages.Add(new Card(10, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHearts10);
-            cardImages.Add(new Card(11, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHeartsJ);
-            cardImages.Add(new Card(12, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHeartsQ);
-            cardImages.Add(new Card(13, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHeartsK);
-            cardImages.Add(new Card(14, 3).ToString(), Poker_Training_Tool.Properties.Resources.cardHeartsA);
-            // Spades
-            cardImages.Add(new Card(2, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades2);
-            cardImages.Add(new Card(3, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades3);
-            cardImages.Add(new Card(4, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades4);
-            cardImages.Add(new Card(5, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades5);
-            cardImages.Add(new Card(6, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades6);
-            cardImages.Add(new Card(7, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades7);
-            cardImages.Add(new Card(8, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades8);
-            cardImages.Add(new Card(9, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades9);
-            cardImages.Add(new Card(10, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpades10);
-            cardImages.Add(new Card(11, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpadesJ);
-            cardImages.Add(new Card(12, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpadesQ);
-            cardImages.Add(new Card(13, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpadesK);
-            cardImages.Add(new Card(14, 4).ToString(), Poker_Training_Tool.Properties.Resources.cardSpadesA);
+            /*
+            answer_buttons[0].Click += correct_Click;
+            answer_buttons[1].Click += incorrect_Click;
+            answer_buttons[2].Click += incorrect_Click;
+             */
         }
 
         private void updateHandStrenght(Table t)
@@ -507,28 +489,16 @@ namespace Poker_Training_Tool
 
         private void updateTableGUI()
         {
-            // Display player hand
-            playerCard1.Image = cardImages[table.getHands()[0].getCard1().ToString()];
-            playerCard1.SizeMode = PictureBoxSizeMode.StretchImage;
-            playerCard2.Image = cardImages[table.getHands()[0].getCard2().ToString()];
-            playerCard2.SizeMode = PictureBoxSizeMode.StretchImage;
+            // Display player hands
+            hand1c1.Text = table.getHands()[0].getCard1().ToString();
+            hand1c2.Text = table.getHands()[0].getCard2().ToString();
 
-            // Display opponent hand
-            opponentCard1.Image = cardImages[table.getHands()[1].getCard1().ToString()];
-            opponentCard1.SizeMode = PictureBoxSizeMode.StretchImage;
-            opponentCard2.Image = cardImages[table.getHands()[1].getCard2().ToString()];
-            opponentCard2.SizeMode = PictureBoxSizeMode.StretchImage;
+            hand2c1.Text = table.getHands()[1].getCard1().ToString();
+            hand2c2.Text = table.getHands()[1].getCard2().ToString();
 
-            // Update hand status
-            if (table.getStatus() == Table.status.Pre_Flop)
-            {
-                hand_status.Text = "Table status: Pre Flop"; 
-            }
-            else
-            {
-                hand_status.Text = "Table status: " + table.getStatus().ToString(); 
-            }
-
+            // Update hand strength label
+            strenght1.Text = table.getHands()[0].getHandStrenght().ToString();
+            strenght2.Text = table.getHands()[1].getHandStrenght().ToString();
 
             correct_number.Text = correct_clicks.ToString();
             incorrect_number.Text = incorrect_clicks.ToString();
@@ -551,7 +521,8 @@ namespace Poker_Training_Tool
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    cardPictureBox[i].Visible = false;
+                    commun_cards[i].Text = "";
+                    commun_cards[i].Visible = false;
                 }
             }
             else
@@ -560,9 +531,8 @@ namespace Poker_Training_Tool
                 {
                     if (cards[i] != null)
                     {
-                        cardPictureBox[i].Image = cardImages[cards[i].ToString()];
-                        cardPictureBox[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                        cardPictureBox[i].Visible = true;
+                        commun_cards[i].Text = cards[i].ToString();
+                        commun_cards[i].Visible = true;
                     }
                     else
                     {
@@ -572,6 +542,63 @@ namespace Poker_Training_Tool
             }
 
         }
+        /*
+
+        private void flopQuestion()
+        {
+            question_label.Text = "How many outs does your hand have?";
+            
+            answer_label_1.Text = "6";
+            answer_label_2.Text = "12";
+            answer_label_3.Text = "32";
+
+            answer_label_1.Click += incorrect_Click;
+            answer_label_2.Click += correct_Click;
+            answer_label_3.Click += incorrect_Click;
+
+            // Make controls visible
+
+            question_label.Visible = true;
+
+            answer_label_1.Visible = true;
+            answer_label_2.Visible = true;
+            answer_label_3.Visible = true;
+            
+        }
+
+        private void preFlopQuestion()
+        {
+            string question_text = "Whose hand is most likely to win?";
+            string answer1 = "Player";
+            string answer2 = "Villain";
+
+            if (true)
+            {
+                List<string> answers = new List<string>();
+                answers.Add(answer1);
+                answers.Add(answer2);
+                Question q = new Question(question_text,answers);
+            }
+            else
+            {
+
+            }
+            question_label.Text = "Whose hand is most likely to win?";
+
+            answer_label_1.Text = "Player";
+            answer_label_3.Text = "Opponent";
+
+            answer_label_1.Click += correct_Click;
+            answer_label_3.Click += incorrect_Click;
+
+            // Make controls visible
+
+            question_label.Visible = true;
+
+            answer_label_1.Visible = true;
+            answer_label_3.Visible = true;
+        }
+        */
 
         private void showQuestion(Question q)
         {
@@ -620,7 +647,6 @@ namespace Poker_Training_Tool
             disable_buttons();
 
         }
-
         private void incorrect_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Incorrect answer was clicked");
@@ -641,6 +667,7 @@ namespace Poker_Training_Tool
                 answer_buttons[i].Enabled = false;
             }
         }
+
 
         private void next_question_Click(object sender, EventArgs e)
         {
@@ -778,7 +805,7 @@ namespace Poker_Training_Tool
                     answers = new List<string>();
 
                     int pot = random.Next(1, 9) * 10; // Generate pot
-                    int bet = random.Next(1 + pot/25, pot/5); // Generatae bet
+                    int bet = random.Next(pot/25, pot/5); // Generatae bet
                     float winning_odds = outs * 2;
                     float pot_odds = 100 / (((float)pot + (float)bet) / (float)bet);
                     string last_line;
@@ -800,15 +827,15 @@ namespace Poker_Training_Tool
                     if (n==1)
                     {
                         // Player is winning
-                        question = "As Opponent,";
+                        question = "As Opponent";
                     }
                     else
                     {
                         // Tie or opponent is winning
-                        question = "As a Player,";
+                        question = "As a Player";
                     }
-                    question += " based on Pot Odds, is it profitable to call " + bet + "£ in a " + pot + "£ pot.";
-                    explanation = "To answer this question correctly you need to calculate two things: Chances of winning, and pot odds.\nThe easiest way to calculate chances of winning is using the rule of '2', which says that your chances of winnings are outs * 2 (this gives an approximate answer, possibly with a small error).\nIn this case chance of winning is:" + outs + " * 2 =" + winning_odds + "%.\nTo calculate pot odds we need to know ratio of pot/bet sizes. In the given situation pot odds can be calculated by using this formula '((pot+bet)/bet) to 1'. After calculation they should be " + ((float)pot + (float)bet) / (float)bet + " to 1 (In percentage it is " + pot_odds+"%).\n"+last_line;
+                    question += " would you call " + bet + "£ in a " + pot + "£ pot.";
+                    explanation = "To answer this question correctly you need to calculate two things: Chances of winning, and pot odds.\nThe easiest way to calculate chances of winning is using the rule of '2', which says that your chances of winnings are outs * 2. In this case chance of winning is:" + outs + " * 2 =" + winning_odds + "%.\nTo calculate pot odds we need to know ratio of pot/bet sizes. In the given situation pot odds are " + (float)pot / (float)bet + " to 1. Converted to percentages it is " + pot_odds+"% .\n"+last_line;
                    // explanation = "Using the rule of '2' the chances of winning are " + winning_odds + "%.\nPot odds are " + pot_odds + "%.\n"+last_line;
 
                     questions.Add(new Question(question, answers, questionType, explanation));
@@ -828,6 +855,7 @@ namespace Poker_Training_Tool
             why_button.Visible = false;
         }
 
+        //Count outs for player ONLY at the moment
         private int countOuts(Table t, Hand h)
         {
             // List of outs

@@ -67,11 +67,17 @@
     <Compile Include="Classes\Hand.cs" />
     <Compile Include="Classes\Question.cs" />
     <Compile Include="Classes\Table.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Main_Menu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Main_Menu.Designer.cs">
+      <DependentUpon>Main_Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Debug_Version.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debug_Version.Designer.cs">
+      <DependentUpon>Debug_Version.cs</DependentUpon>
     </Compile>
     <Compile Include="Practice.cs">
       <SubType>Form</SubType>
@@ -81,8 +87,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Main_Menu.resx">
+      <DependentUpon>Main_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debug_Version.resx">
+      <DependentUpon>Debug_Version.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Practice.resx">
       <DependentUpon>Practice.cs</DependentUpon>
@@ -95,6 +104,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -125,6 +135,168 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubs10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubsA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubsJ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubsK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardClubsQ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamonds10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamondsA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamondsJ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamondsK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardDiamondsQ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHearts10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHeartsA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHeartsJ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHeartsK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardHeartsQ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpades10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpadesA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpadesJ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpadesK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardSpadesQ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cardBack_red1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\greenbyrequest.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

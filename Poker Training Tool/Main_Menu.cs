@@ -11,9 +11,9 @@ using Poker_Training_Tool.Classes;
 
 namespace Poker_Training_Tool
 {
-    public partial class Form1 : Form
+    public partial class Main_Menu : Form
     {
-        public Form1()
+        public Main_Menu()
         {
             InitializeComponent();
         }
@@ -31,6 +31,12 @@ namespace Poker_Training_Tool
         private void practice_button_Click(object sender, EventArgs e)
         {
             Practice p = new Practice();
+            p.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Debug_Version p = new Debug_Version();
             p.Show();
         }
     }

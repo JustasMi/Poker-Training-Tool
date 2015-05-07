@@ -28,10 +28,14 @@ namespace Poker_Training_Tool.Classes
             deck = new Deck();
             
             // Deal cards to players
+            
             for (int j=0;j<players;j++)
             {
                 hands.Add(new Hand(deck.draw(), deck.draw()));
-            }            
+            } 
+             
+            //hands.Add(new Hand(deck.removeCard(new Card(14,3)), deck.removeCard(new Card(12,3) )));
+            //hands.Add(new Hand(deck.removeCard(new Card(14, 2)), deck.removeCard(new Card(8, 2))));
             // Set the table status
             table_status = Table.status.Pre_Flop;
         }
@@ -58,21 +62,23 @@ namespace Poker_Training_Tool.Classes
             if (commun_cards[0] == null)
             {
 
-                //commun_cards[0] = new Card(5, 3);
-                //commun_cards[1] = new Card(6, 3);
-                //commun_cards[2] = new Card(12, 3);
+                //commun_cards[0] = new Card(9, 2);
+                //commun_cards[1] = new Card(10, 2);
+                //commun_cards[2] = new Card(11, 3);
                 
                 for (int i = 0; i < 3;i++ )
                 {
                     commun_cards[i] = deck.draw();
                     //commun_cards[i] = new Card(9 + i, 2);
                 }
-                 
+                
                 table_status = status.Flop;
             }
             // Deal turn
             else if (commun_cards[3] == null)
             {
+                //commun_cards[3] = new Card(4, 4);
+
                 Hand losing_hand;
                 if (hands[0].compareHand(hands[1]) == 1)
                 {
@@ -99,8 +105,6 @@ namespace Poker_Training_Tool.Classes
                 {
                     commun_cards[3] = deck.draw();
                 }
-
-                //commun_cards[3] = deck.draw();
                 table_status = status.Turn;
             }
             // Deal river
